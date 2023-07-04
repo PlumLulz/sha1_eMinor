@@ -61,29 +61,17 @@ KERNEL_FQ void m92000_mxx (KERN_ATTR_RULES ())
    * base
    */
 
+
   COPY_PW (pws[gid]);
 
-  const u32 e2[16] = {0x65000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 M2[16] = {0x4d000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 i2[16] = {0x69000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 n2[16] = {0x6e000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 o2[16] = {0x6f000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 r2[16] = {0x72000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 hyphen[16] = {0x2d000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 bracket[16] = {0x7d000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+  const u32 eminor[16] = {0x654d696e, 0x6f722d2d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+  const u32 eminorend[16] = {0x2d2d7d00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
   sha1_ctx_t ctx0;
 
   sha1_init (&ctx0);
 
-  sha1_update (&ctx0, e2, 1);
-  sha1_update (&ctx0, M2, 1);
-  sha1_update (&ctx0, i2, 1);
-  sha1_update (&ctx0, n2, 1);
-  sha1_update (&ctx0, o2, 1);
-  sha1_update (&ctx0, r2, 1);
-  sha1_update (&ctx0, hyphen, 1);
-  sha1_update (&ctx0, hyphen, 1);
+  sha1_update (&ctx0, eminor, 8);
   sha1_update_global_swap (&ctx0, salt_bufs[SALT_POS_HOST].salt_buf, salt_bufs[SALT_POS_HOST].salt_len);
 
   /**
@@ -100,20 +88,11 @@ KERNEL_FQ void m92000_mxx (KERN_ATTR_RULES ())
 
     sha1_init (&ctx1);
 
-    sha1_update (&ctx1, e2, 1);
-    sha1_update (&ctx1, M2, 1);
-    sha1_update (&ctx1, i2, 1);
-    sha1_update (&ctx1, n2, 1);
-    sha1_update (&ctx1, o2, 1);
-    sha1_update (&ctx1, r2, 1);
-    sha1_update (&ctx1, hyphen, 1);
-    sha1_update (&ctx1, hyphen, 1);
+    sha1_update (&ctx1, eminor, 8);
 
     sha1_update_swap (&ctx1, tmp.i, tmp.pw_len);
 
-    sha1_update (&ctx1, hyphen, 1);
-    sha1_update (&ctx1, hyphen, 1);
-    sha1_update (&ctx1, bracket, 1);
+    sha1_update (&ctx1, eminorend, 3);
 
     sha1_final (&ctx1);
 
@@ -159,9 +138,7 @@ KERNEL_FQ void m92000_mxx (KERN_ATTR_RULES ())
 
     sha1_update_64 (&ctx, w0, w1, w2, w3, 40);
 
-    sha1_update (&ctx, hyphen, 1);
-    sha1_update (&ctx, hyphen, 1);
-    sha1_update (&ctx, bracket, 1);
+    sha1_update (&ctx, eminorend, 3);
 
     sha1_final (&ctx);
 
@@ -221,27 +198,14 @@ KERNEL_FQ void m92000_sxx (KERN_ATTR_RULES ())
 
   COPY_PW (pws[gid]);
 
-  const u32 e2[16] = {0x65000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 M2[16] = {0x4d000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 i2[16] = {0x69000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 n2[16] = {0x6e000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 o2[16] = {0x6f000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 r2[16] = {0x72000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 hyphen[16] = {0x2d000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  const u32 bracket[16] = {0x7d000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+  const u32 eminor[16] = {0x654d696e, 0x6f722d2d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+  const u32 eminorend[16] = {0x2d2d7d00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
   sha1_ctx_t ctx0;
 
   sha1_init (&ctx0);
 
-  sha1_update (&ctx0, e2, 1);
-  sha1_update (&ctx0, M2, 1);
-  sha1_update (&ctx0, i2, 1);
-  sha1_update (&ctx0, n2, 1);
-  sha1_update (&ctx0, o2, 1);
-  sha1_update (&ctx0, r2, 1);
-  sha1_update (&ctx0, hyphen, 1);
-  sha1_update (&ctx0, hyphen, 1);
+  sha1_update (&ctx0, eminor, 8);
   sha1_update_global_swap (&ctx0, salt_bufs[SALT_POS_HOST].salt_buf, salt_bufs[SALT_POS_HOST].salt_len);
 
   /**
@@ -258,20 +222,11 @@ KERNEL_FQ void m92000_sxx (KERN_ATTR_RULES ())
 
     sha1_init (&ctx1);
 
-    sha1_update (&ctx1, e2, 1);
-    sha1_update (&ctx1, M2, 1);
-    sha1_update (&ctx1, i2, 1);
-    sha1_update (&ctx1, n2, 1);
-    sha1_update (&ctx1, o2, 1);
-    sha1_update (&ctx1, r2, 1);
-    sha1_update (&ctx1, hyphen, 1);
-    sha1_update (&ctx1, hyphen, 1);
+    sha1_update (&ctx1, eminor, 8);
 
     sha1_update_swap (&ctx1, tmp.i, tmp.pw_len);
 
-    sha1_update (&ctx1, hyphen, 1);
-    sha1_update (&ctx1, hyphen, 1);
-    sha1_update (&ctx1, bracket, 1);
+    sha1_update (&ctx1, eminorend, 3);
 
     sha1_final (&ctx1);
 
@@ -317,9 +272,7 @@ KERNEL_FQ void m92000_sxx (KERN_ATTR_RULES ())
 
     sha1_update_64 (&ctx, w0, w1, w2, w3, 40);
 
-    sha1_update (&ctx, hyphen, 1);
-    sha1_update (&ctx, hyphen, 1);
-    sha1_update (&ctx, bracket, 1);
+    sha1_update (&ctx, eminorend, 3);
 
     sha1_final (&ctx);
 
